@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   
@@ -13,10 +13,72 @@
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  
+  <link href="styles/bootstrap-social.css" rel="stylesheet">
+  <link href="styles/mystyles.css" rel="stylesheet">
   <title>AngularJS Bootstrap Tabs Filter Example</title>
 </head>
 <body>
-  <input ng-model="test"></input>
-  {{ test }}
+  <div class="container" ng-app="conFusion">
+    <div class="row row-content" ng-controller="menuController as menuCtrl">
+      <div class="col-xs-12">
+       
+        <ul class="nav nav">
+          
+        </ul>
+       
+        <ul class="media-list">
+          <li class="media" ng-repeat="dish in menuCtrl.dishes">
+            <div class="media-left media-middle">
+              <a href="#">
+                <img class="media-object img-thumbnail"
+                ng-src="{{dish.image}}" alt="Uthappizza">
+              </a>
+            </div>
+            <div class="media-body">
+              <h2 class="media-heading">{{dish.name}}
+                <span class="label label-danger label-xs">{{dish.label}}</span>
+                <span class="badge">{{dish.price | currency}}</span>
+              </h2>
+              <p>{{dish.description}}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script>
+    var myApp = angular.module('conFusion', []);
+    myApp.controller('menuController', function() {
+      this.dishes = [
+        {
+          image: 'images/uthapizza.png',
+          name: 'Uthapizza',
+          label: 'Hot',
+          price: 4.99,
+          description: 'A unique combination of Uthappam (pancake) and italian pizza, topped with Cerignola olivesLorem fistrum va usté muy cargadoo no te digo trigo por no llamarte Rodrigor fistro condemor mamaar la caidita está la cosa muy malar te va a hasé pupitaa.'
+        },
+        {
+          image: 'images/zucchipakoda.png',
+          name: 'Zucchipakoda',
+          price: 1.99,
+          description: 'Me cago en tus muelas ahorarr qué dise usteer de la pradera de la pradera va usté muy cargadoo tiene musho peligro te voy a borrar el cerito. Fistro diodeno diodeno no te digo trigo por no llamarte Rodrigor torpedo.'
+        },
+        {
+          image: 'images/vadonut.png',
+          name: 'Vadonut',
+          label: 'New',
+          price: 1.99,
+          description: 'A unique combination of Uthappam (pancake) and italian pizza, topped with Cerignola olivesLorem fistrum va usté muy cargadoo no te digo trigo por no llamarte Rodrigor fistro condemor mamaar la caidita está la cosa muy malar te va a hasé pupitaa.'
+        },
+        {
+          image: 'images/elaicheesecake.png',
+          name: 'Elai Cheese Cake',
+          price: 2.99,
+          description: '   Fistro tiene musho peligro benemeritaar llevame al sircoo está la cosa muy malar se calle ustée a wan no te digo trigo por no llamarte Rodrigor qué dise usteer. Me cago en tus muelas al ataquerl no puedor sexuarl te va a hasé pupitaa quietooor. Fistro me cago en tus muelas caballo blanco caballo negroorl ese pedazo de a gramenawer condemor sexuarl.'
+        },
+      ];
+    });
+  </script>
 </body>
 </html>
