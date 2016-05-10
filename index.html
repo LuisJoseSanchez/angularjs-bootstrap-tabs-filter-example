@@ -24,46 +24,56 @@
       <div class="col-xs-12">
        
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation">
-            <a href="" aria-controls="all menu" role="tab">The Menu</a>
+          <li role="presentation" ng-class="active:menuCtrl.isSelected(1)">
+            <a href="" ng-click="menuCtrl.select(1)" aria-controls="all menu" role="tab">The Menu</a>
           </li>
-          <li role="presentation">
-            <a href="" aria-controls="appetizers" role="tab">Appetizers</a>
+          <li role="presentation" ng-class="active:menuCtrl.isSelected(2)">
+            <a href="" ng-click="menuCtrl.select(2)" aria-controls="appetizers" role="tab">Appetizers</a>
           </li>
-          <li role="presentation">
-            <a href="" aria-controls="mains" role="tab">Mains</a>
+          <li role="presentation" ng-class="{active:menuCtrl.isSelected(3)}">
+            <a href="" ng-click="menuCtrl.select(3)" aria-controls="mains" role="tab">Mains</a>
           </li>
-          <li role="presentation">
-            <a href="" aria-controls="desserts" role="tab">Desserts</a>
+          <li role="presentation" ng-class="{active:menuCtrl.isSelected(4)}">
+            <a href="" ng-click="menuCtrl.select(4)" aria-controls="desserts" role="tab">Desserts</a>
           </li>
         </ul>
        
-        <ul class="media-list">
-          <li class="media" ng-repeat="dish in menuCtrl.dishes">
-            <div class="media-left media-middle">
-              <a href="#">
-                <img class="media-object img-thumbnail"
-                ng-src="{{dish.image}}" alt="Uthappizza">
-              </a>
-            </div>
-            <div class="media-body">
-              <h2 class="media-heading">{{dish.name}}
-                <span class="label label-danger label-xs">{{dish.label}}</span>
-                <span class="badge">{{dish.price | currency}}</span>
-              </h2>
-              <p>{{dish.description}}</p>
-            </div>
-          </li>
-        </ul>
+        <div class="tab-content">
+          <ul class="media-list tab-pane fade in active">
+            <li class="media" ng-repeat="dish in menuCtrl.dishes | filter:menuCtrl.filtText">
+              <div class="media-left media-middle">
+                <a href="#">
+                  <img class="media-object img-thumbnail"
+                  ng-src="{{dish.image}}" alt="Uthappizza">
+                </a>
+              </div>
+              <div class="media-body">
+                <h2 class="media-heading">{{dish.name}}
+                  <span class="label label-danger label-xs">{{dish.label}}</span>
+                  <span class="badge">{{dish.price | currency}}</span>
+                </h2>
+                <p>{{dish.description}}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
   <script>
     var myApp = angular.module('conFusion', []);
     myApp.controller('menuController', function() {
+      
+      this.tab = 1;
+      
+      this.filtText = '';
+      
+      this.filters = ['', '', 'appetizer', 'main', 'dessert'];
+      
       this.dishes = [
         {
           image: 'images/uthapizza.png',
+          category: 'main',
           name: 'Uthapizza',
           label: 'Hot',
           price: 4.99,
@@ -72,11 +82,13 @@
         {
           image: 'images/zucchipakoda.png',
           name: 'Zucchipakoda',
+          category: 'appetizer',
           price: 1.99,
           description: 'Me cago en tus muelas ahorarr qué dise usteer de la pradera de la pradera va usté muy cargadoo tiene musho peligro te voy a borrar el cerito. Fistro diodeno diodeno no te digo trigo por no llamarte Rodrigor torpedo.'
         },
         {
           image: 'images/vadonut.png',
+          category: 'dessert',
           name: 'Vadonut',
           label: 'New',
           price: 1.99,
@@ -84,11 +96,21 @@
         },
         {
           image: 'images/elaicheesecake.png',
+          category: 'dessert',
           name: 'Elai Cheese Cake',
           price: 2.99,
           description: '   Fistro tiene musho peligro benemeritaar llevame al sircoo está la cosa muy malar se calle ustée a wan no te digo trigo por no llamarte Rodrigor qué dise usteer. Me cago en tus muelas al ataquerl no puedor sexuarl te va a hasé pupitaa quietooor. Fistro me cago en tus muelas caballo blanco caballo negroorl ese pedazo de a gramenawer condemor sexuarl.'
         },
       ];
+      
+      this.select = function(setTab) {
+        this.tab = setTab;
+        this.filtText = filters[setTab];
+      }
+      
+      this.isSelected = function(checkTab) {
+        return (this.tab === checkTab);
+      }
     });
   </script>
 </body>
